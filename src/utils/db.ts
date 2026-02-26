@@ -1,6 +1,6 @@
 import { Pool } from "pg";
 import dotenv from "dotenv";
-
+import fs from "fs";  
 
 dotenv.config();
 
@@ -10,6 +10,9 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: Number(process.env.DB_PORT) || 5432,
+  ssl: {
+    ca: fs.readFileSync("ca.pem"),
+  },
 });
 
 pool
